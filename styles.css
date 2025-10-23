@@ -1,0 +1,323 @@
+:root{--bg:#09030b;--card:#1a0610;--muted:#e8bfcf;--text:#ffeef8;--btn-text:#0b0210;--bg-top:#05020a;--card-border:rgba(255,61,146,0.05);--header-glass:rgba(255,61,146,0.04);--nav-bg:rgba(5,8,15,0.95);--accent:#ff3d92;--accent-2:#ff86c2;--glass:rgba(255,61,146,0.06);--radius:12px;--container:1100px;--gap:24px;color-scheme:dark}
+:root{--ripple-r:255;--ripple-g:61;--ripple-b:146}
+/* 亮色主题覆盖（通过 document.documentElement 设置 data-theme="light"） */
+:root[data-theme="light"]{
+  --bg: #fff7fb;
+  --card: #fff0f6;
+  --muted: #6b4a59;
+  --accent: #d63384;
+  --accent-2: #ff87b2;
+  --glass: rgba(214,51,132,0.06);
+  --text: #2b0b12; /* 深色文本以提高对比 */
+  --btn-text: #ffffff; /* 按钮文字用白色以与粉色渐变对比 */
+  --bg-top: #fff9fb; /* 顶部渐变浅色 */
+  --card-border: rgba(214,51,132,0.08);
+  --header-glass: rgba(214,51,132,0.04);
+  --nav-bg: rgba(255,255,255,0.96);
+  --ripple-r: 214;
+  --ripple-g: 51;
+  --ripple-b: 132;
+  color-scheme: light;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  /* Aurora 渐变背景：与毛玻璃卡片协调，保持可读性 */
+  background:
+    radial-gradient(1100px 540px at 15% 20%, rgba(255,61,146,0.10), transparent 60%),
+    radial-gradient(900px 420px at 85% 70%, rgba(154,211,255,0.08), transparent 60%),
+    radial-gradient(800px 360px at 50% 95%, rgba(255,134,194,0.06), transparent 60%),
+    linear-gradient(180deg,var(--bg-top) 0%, var(--bg) 100%);
+  background-attachment: fixed; /* 修复下滑无背景问题 */
+  background-size: 100% 100%;
+  min-height: 100vh;
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.6;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out, background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+/* 页面加载动画 */
+body.loaded {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 平滑滚动 */
+html {
+  scroll-behavior: smooth;
+}
+
+/* 元素加载动画 */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 平滑滚动 */
+html {
+  scroll-behavior: smooth;
+}
+
+/* 元素加载动画 */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 视差滚动元素 */
+[data-parallax] {
+  transition: transform 0.3s ease-out;
+  will-change: transform;
+}
+
+.parallax-active {
+  transition: transform 0.5s ease-out;
+}
+.site-header, body, .card, .btn, .brand, .site-nav a { transition: background-color .35s ease, color .35s ease, border-color .35s ease, box-shadow .35s ease; }
+
+/* 语言切换淡入淡出 */
+.i18n-fade{transition:opacity .48s cubic-bezier(.2,.8,.2,1);opacity:0.25}
+
+/* 精细的 i18n 文本过渡（逐元素淡出->替换->淡入） */
+[data-i18n].i18n-fade-anim{transition:opacity .48s cubic-bezier(.2,.8,.2,1), transform .48s cubic-bezier(.2,.8,.2,1);opacity:1;transform:translateY(0)}
+[data-i18n].i18n-fade-out{opacity:0;transform:translateY(6px)}
+[data-i18n].i18n-fade-in{opacity:1;transform:translateY(0)}
+
+@media (prefers-reduced-motion: reduce){.bg-blobs .blob,.card,.btn,.hero-inner,.site-header,.particle{animation:none!important;transition:none!important}.i18n-fade{transition:none;opacity:1}[data-i18n].i18n-fade-anim,[data-i18n].i18n-fade-out,[data-i18n].i18n-fade-in{transition:none!important;opacity:1;transform:none}.text-gradient,.btn .ripple{animation:none!important}.liquid-glass .ls{filter:none;transition:none;opacity:0.85}}
+
+/* Theme ripple variables for light theme override */
+:root[data-theme="light"]{--ripple-r:214;--ripple-g:51;--ripple-b:132}
+
+/* 页面级主题切换水波涟漪覆盖层 */
+.theme-ripple{position:fixed;inset:0;pointer-events:none;z-index:9999}
+.theme-ripple::before{content:"";position:absolute;inset:0;display:block;background:radial-gradient(circle at var(--ripple-x,50%) var(--ripple-y,50%), rgba(var(--ripple-r),var(--ripple-g),var(--ripple-b),0.12) 0%, rgba(var(--ripple-r),var(--ripple-g),var(--ripple-b),0.06) 30%, transparent 70%);transform:scale(0);transform-origin:var(--ripple-x,50%) var(--ripple-y,50%);transition:transform .86s cubic-bezier(.22,.8,.26,1),opacity .86s ease;will-change:transform,opacity;opacity:0.96}
+.theme-ripple.animate::before{transform:scale(6.4);opacity:0}
+
+@media (prefers-reduced-motion: reduce){
+  .theme-ripple{display:none}
+}
+
+/* --------------------------- */
+/* 语言切换：文字渐变动画 */
+/* 添加 .text-gradient 到元素会触发文字渐变效果，随后移除类以便下次重复 */
+.text-gradient{
+  display:inline-block;
+  background: linear-gradient(90deg,var(--accent),var(--accent-2));
+  background-size: 180% 180%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 1.0s cubic-bezier(.2,.8,.2,1);
+}
+@keyframes gradientShift{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+/* --------------------------- */
+/* 按钮涟漪效果（微交互） */
+.btn{position:relative;overflow:hidden}
+.btn .ripple{position:absolute;border-radius:50%;transform:scale(0);opacity:0.55;pointer-events:none;mix-blend-mode:screen}
+@keyframes rippleAnim{to{transform:scale(3.6);opacity:0}}
+
+/* --------------------------- */
+/* 滚动时的页面动画：根据 body 的 scroll-up / scroll-down 类做样式调整 */
+/* 向下滚动时隐藏 header，向上滚动时显示 header */
+.site-header{transition:transform .28s ease, opacity .28s ease}
+body.scroll-down .site-header{transform:translateY(-84px);opacity:0;pointer-events:none}
+body.scroll-up .site-header{transform:translateY(0);opacity:1;pointer-events:auto}
+
+/* 背景 blob 跟随滚动微移动，增强深度感 */
+.bg-blobs{transition:transform .35s ease}
+body.scroll-down .bg-blobs{transform:translateY(-18px) scale(1.01)}
+body.scroll-up .bg-blobs{transform:translateY(0) scale(1)}
+
+/* 在减少动画偏好时禁用涟漪动画 */
+@media (prefers-reduced-motion: reduce){
+  .text-gradient, .btn .ripple{animation:none !important}
+}
+.container{max-width:var(--container);margin:0 auto;padding:0 20px}
+.header-inner{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.site-header{backdrop-filter: blur(6px);position:sticky;top:0;z-index:40;background:linear-gradient(180deg, var(--header-glass), transparent)}
+.site-header .container{padding:12px 20px}
+.brand{font-weight:700;color:var(--accent);text-decoration:none;font-size:1.1rem}
+.site-nav ul{list-style:none;margin:0;padding:0;display:flex;gap:16px}
+.site-nav a{color:inherit;text-decoration:none;padding:8px;border-radius:8px}
+.site-nav a:hover{background:var(--glass)}
+.nav-toggle{display:none;background:transparent;border:0;color:inherit;font-size:1.3rem}
+
+.header-actions{display:flex;align-items:center;gap:12px}
+.social-links{display:flex;gap:1.5rem;margin:1.5rem 0}
+.social{display:inline-flex;align-items:center;justify-content:center;padding:0.8rem 1.5rem;border-radius:var(--radius);text-decoration:none;color:var(--text);background:rgba(255, 255, 255, 0.05);border:1px solid rgba(255, 255, 255, 0.1);position:relative;overflow:hidden;transition:transform 0.4s ease, box-shadow 0.4s ease;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 8px 32px rgba(0, 0, 0, 0.1)}
+.social:hover{transform:translateY(-5px) scale(1.05);box-shadow:0 15px 30px rgba(0, 0, 0, 0.15)}
+.social.github:hover{background:linear-gradient(135deg, rgba(36, 41, 46, 0.2), rgba(36, 41, 46, 0.1));border-color:rgba(36, 41, 46, 0.3)}
+.social.telegram:hover{background:linear-gradient(135deg, rgba(0, 136, 204, 0.2), rgba(0, 136, 204, 0.1));border-color:rgba(0, 136, 204, 0.3)}
+/* footer center */
+.footer-center{display:flex;justify-content:center;margin-top:10px}
+
+
+.theme-toggle{background:transparent;border:0;padding:6px;border-radius:20px;display:inline-flex;align-items:center;gap:10px;cursor:pointer}
+.theme-toggle .toggle-track{width:56px;height:32px;background:rgba(0,0,0,0.06);border-radius:999px;display:inline-block;position:relative;transition:background .32s cubic-bezier(.22,.85,.28,1), box-shadow .32s}
+.theme-toggle .toggle-knob{position:absolute;left:4px;top:4px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 8px 20px rgba(11,2,16,0.32);transition:transform .34s cubic-bezier(.22,.85,.28,1), box-shadow .34s;transform:translateX(0)}
+.theme-toggle .toggle-icons{display:inline-flex;align-items:center;gap:8px;color:var(--accent);opacity:1;line-height:0}
+.theme-toggle .icon-sun{opacity:1}
+.theme-toggle .icon-moon{opacity:0}
+.theme-toggle[aria-pressed="true"] .toggle-track{background:linear-gradient(90deg,var(--accent),var(--accent-2));box-shadow:0 6px 18px rgba(255,61,146,0.12)}
+.theme-toggle[aria-pressed="true"] .toggle-knob{transform:translateX(24px);background:var(--btn-text);box-shadow:0 10px 26px rgba(11,2,16,0.28)}
+.theme-toggle[aria-pressed="true"] .icon-sun{opacity:0;transform:translateY(-2px)}
+.theme-toggle[aria-pressed="true"] .icon-moon{opacity:1;transform:translateY(0)}
+.theme-toggle .icon-sun, .theme-toggle .icon-moon{transition:opacity .28s ease, transform .28s ease}
+.theme-toggle .icon-sun{color:#ffd166}
+.theme-toggle .icon-moon{color:#9ad3ff}
+
+@media (prefers-reduced-motion: reduce){
+  .theme-toggle .toggle-track, .theme-toggle .toggle-knob{transition:none}
+}
+
+.hero{padding:80px 0;display:flex;align-items:center}
+.hero-inner{display:flex;flex-direction:column;gap:18px;align-items:flex-start}
+.hero h1{margin:0;font-size:2.2rem}
+.hero .tagline{color:var(--muted);margin:0}
+.hero-actions{display:flex;gap:12px;margin-top:6px}
+.btn{display:inline-block;padding:10px 14px;border-radius:10px;border:1px solid rgba(255,61,146,0.06);background:transparent;color:inherit;cursor:pointer}
+.btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:var(--btn-text);border:none}
+.btn.primary:hover{box-shadow:0 10px 30px rgba(255,61,146,0.18);transform:translateY(-3px)}
+.small{font-size:0.9rem;color:var(--muted)}
+.email a{color:var(--accent);text-decoration:underline}
+
+/* 删除液态玻璃装饰样式 */
+
+.hitokoto{margin-top:18px;padding:12px 14px;border-radius:10px;max-width:720px}
+.hitokoto blockquote{margin:0;font-style:italic;color:var(--muted)}
+.hitokoto-meta{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
+.hitokoto .btn{padding:6px 10px;border-radius:8px}
+
+.panel{padding:60px 0}
+.panel.alt{background:none}
+h2{margin-top:0}
+/* 卡片式布局（毛玻璃效果） */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--gap);margin-top:18px;align-items:stretch}
+ @media (max-width: 767px){.cards{grid-template-columns:1fr}}
+ @media (min-width: 768px){.cards{grid-template-columns:repeat(2,1fr);max-width:880px;margin-left:auto;margin-right:auto}}
+ .card{position:relative}
+ .card{min-height:220px}
+.card{position:relative;border-radius:var(--radius);padding:18px;background:linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.04));border:1px solid var(--card-border);backdrop-filter:blur(12px) saturate(1.05);-webkit-backdrop-filter:blur(12px) saturate(1.05);box-shadow:0 8px 24px rgba(0,0,0,0.12);transition:transform .4s ease,box-shadow .4s ease}
+.card:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 14px 34px rgba(0,0,0,0.16)}
+.card .card-content{position:relative;z-index:1}
+.card h3{margin-top:0;margin-bottom:8px}
+ .card p{margin:0.35rem 0}
+ .card-icon{width:42px;height:42px;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;margin-bottom:8px;font-size:22px;line-height:1;filter:saturate(1.05);background:linear-gradient(180deg,rgba(255,255,255,0.12),rgba(255,255,255,0.06));border:1px solid var(--card-border);box-shadow:0 6px 20px rgba(0,0,0,0.12)}
+ :root[data-theme="light"] .card-icon{background:linear-gradient(180deg,rgba(255,255,255,0.72),rgba(255,255,255,0.58));box-shadow:0 6px 18px rgba(0,0,0,0.08)}
+.card .tech{color:var(--muted)}
+ /* 低透明度噪点磨砂纹理 */
+ .card::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:0;
+   background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+   background-size: 3px 3px;opacity:.5;mix-blend-mode:overlay}
+ :root[data-theme="light"] .card::after{background-image: radial-gradient(rgba(0,0,0,0.025) 1px, transparent 1px);}
+/* iOS风格卡片叠加效果 */
+.ios-card::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,0.12),rgba(255,255,255,0));opacity:.35;pointer-events:none}
+:root[data-theme="light"] .card{background:linear-gradient(180deg,rgba(255,255,255,0.65),rgba(255,255,255,0.48));box-shadow:0 8px 22px rgba(0,0,0,0.08)}
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .card{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(255,255,255,0.08)}
+  :root[data-theme="light"] .card{background:rgba(255,255,255,0.75)}
+}
+
+/* 液态玻璃效果（已禁用，改用毛玻璃卡片） */
+.liquid-glass{display:none}
+.muted{color:var(--muted);font-size:0.92rem}
+
+/* 保留对不支持 backdrop-filter 的兼容（这里不依赖 backdrop-filter） */
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  /* nothing special needed — 使用半透明背景作为回退 */
+}
+
+/* 把主要内容抬到 overlay 之上以保证可读性 */
+main, .hero-inner, .panel, .card, .site-footer{position:relative;z-index:10}
+
+/* 提升一言、面板的对比度 */
+.panel.alt{background:linear-gradient(180deg, rgba(255,61,146,0.02), transparent)}
+
+/* 关于部分 - 分屏布局 */
+.split-screen {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .split-screen {
+    flex-direction: column;
+  }
+  
+  .profile-section, .timeline-section {
+    width: 100%;
+  }
+}
+
+/* 标题阴影增强阅读性（深色主题） */
+.hero h1, h2{ text-shadow: 0 6px 18px rgba(2,6,23,0.36) }
+
+/* 亮色主题下的覆盖层更浅，卡片/一言背景也做相应调整 */
+:root[data-theme="light"] .bg-overlay{background:linear-gradient(180deg, rgba(255,255,255,0.62), rgba(255,255,255,0.34));backdrop-filter:blur(4px) saturate(1.02)}
+:root[data-theme="light"] .hero h1, :root[data-theme="light"] h2{ text-shadow: 0 1px 2px rgba(255,255,255,0.6) }
+
+.site-footer{padding:28px 0;color:var(--muted);border-top:1px solid var(--card-border);display:flex;align-items:center}
+.site-footer .container{display:flex;flex-direction:column;align-items:center;gap:8px}
+.footer-center{display:flex;justify-content:center}
+
+
+
+.bg-overlay{position:fixed;inset:0;z-index:5;pointer-events:none;background:linear-gradient(180deg, rgba(3,6,12,0.56), rgba(3,6,12,0.28));backdrop-filter:blur(6px) saturate(1.02);transition:background .45s ease,opacity .45s ease}
+
+
+/* 粒子爆裂（复制邮箱时的微交互） */
+.particle{position:absolute;border-radius:50%;pointer-events:none;mix-blend-mode:screen}
+
+
+/* 响应式 */
+@media (max-width:700px){
+  .nav-toggle{display:block}
+  .site-nav{position:absolute;left:0;right:0;top:64px;background:var(--nav-bg);display:none}
+  .site-nav[aria-hidden="false"]{display:block}
+  .site-nav ul{flex-direction:column;padding:12px}
+  .hero{padding:48px 0}
+  .hero h1{font-size:1.6rem}
+}
+
+/* 小动画 */
+.card, .hero-inner, .site-header{transition:transform .35s ease,opacity .35s ease}
+.reveal{transform:none;opacity:1}
+.hidden{transform:translateY(10px);opacity:0}
+
+/* 功能模块的轻量样式，保持与现有卡片风格一致 */
+.controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.big-number{font-size:2rem;font-weight:600;margin:6px 0}
+.todo-add{display:flex;gap:8px;margin-top:6px}
+.todo-add input{flex:1;padding:8px;border-radius:8px;border:1px solid var(--card-border);background:rgba(255,255,255,0.06);color:inherit}
+.todo-list{list-style:none;margin:8px 0 0;padding:0}
+.todo-list li{display:flex;align-items:center;justify-content:space-between;padding:6px 8px;border:1px solid var(--card-border);border-radius:8px;margin-top:6px;background:rgba(255,255,255,0.06)}
+.todo-list li .title{flex:1;margin-left:8px}
+.todo-list li.done .title{text-decoration:line-through;opacity:.6}
+.game-wrap{display:flex;justify-content:center;align-items:center;margin-top:8px}
+.game-wrap canvas{border-radius:8px;border:1px solid var(--card-border);background:rgba(255,255,255,0.06);width:100%;max-width:340px;height:auto}
