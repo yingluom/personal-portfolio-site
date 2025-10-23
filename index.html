@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>桜落小窝🌸</title>
+  <meta name="description" content="桜落滿尽城的个人作品集，展示前端开发与交互设计作品。">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon.ico" sizes="32x32" type="image/x-icon">
+</head>
+<body>
+  <div class="bg-overlay" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#home">桜落滿尽城</a>
+      <button class="nav-toggle" aria-label="菜单切换" aria-expanded="false">☰</button>
+      <nav class="site-nav" aria-label="主导航">
+        <ul>
+          <li><a href="#home">首页</a></li>
+          <li><a href="#projects">作品</a></li>
+          <li><a href="#contact">联系</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <button id="themeToggle" class="theme-toggle" aria-label="切换主题" aria-pressed="false">
+          <span class="toggle-track" aria-hidden="true">
+            <span class="toggle-knob"></span>
+          </span>
+          <span class="toggle-icons" aria-hidden="true">
+            <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.76 4.84 4.97 3.05 3.17 4.84l1.79 1.79L6.76 4.84zM1 13h3v-2H1v2zm10-9h2V1h-2v3zm7.03 2.05 1.79-1.79L21.03 1.27 19.24 3.05 21.03 5.84zM17.24 19.16l1.79 1.79 1.79-1.79-1.79-1.79-1.79 1.79zM20 11v2h3v-2h-3zM12 6a6 6 0 100 12 6 6 0 000-12z" fill="currentColor"/></svg>
+            <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21.64 13.02A9 9 0 1110.98 2.36 7 7 0 0021.64 13.02z" fill="currentColor"/></svg>
+          </span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="hero">
+      <div class="container hero-inner hidden" data-parallax="0.1">
+        <h1 data-parallax="0.15">你好,我是 <span class="name">樱落满尽城</span></h1>
+        <p class="tagline" data-parallax="0.2">热爱前端与交互设计，喜欢把想法做成有趣的页面。</p>
+        <div class="hero-actions" data-parallax="0.25">
+          <a class="btn primary" href="#projects">查看作品</a>
+        </div>
+        <div class="hitokoto" id="hitokoto" data-parallax="0.3">
+          <blockquote id="hitokotoText">「欢迎来到我的个人页面」</blockquote>
+          <div class="hitokoto-meta">
+            <span id="hitokotoFrom"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="panel alt hidden">
+      <div class="container">
+        <h2>作品</h2>
+        <div class="cards">
+          <div class="card ios-card" data-tilt>
+            <div class="card-content">
+              <div class="liquid-glass"></div>
+              <div class="card-icon" aria-hidden="true">⏱️</div>
+              <h3>番茄钟（专注计时）</h3>
+              <p class="small muted">设置工作/休息时长，提升专注效率。</p>
+              <div class="controls">
+                <label>工作 <input type="number" id="pomodoroWork" min="1" max="180" value="25"> 分钟</label>
+                <label>休息 <input type="number" id="pomodoroBreak" min="1" max="60" value="5"> 分钟</label>
+              </div>
+              <p id="pomodoroStatus" class="small muted">状态：未开始</p>
+              <div id="pomodoroDisplay" class="big-number">25:00</div>
+              <div class="controls">
+                <button class="btn primary" id="pomodoroStart">开始</button>
+                <button class="btn" id="pomodoroPause">暂停</button>
+                <button class="btn" id="pomodoroReset">重置</button>
+              </div>
+            </div>
+          </div>
+          <div class="card ios-card" data-tilt>
+            <div class="card-content">
+              <div class="liquid-glass"></div>
+              <div class="card-icon" aria-hidden="true">✅</div>
+              <h3>待办清单</h3>
+              <p class="small muted">记录待办，勾选完成，自动保存。</p>
+              <div class="todo-add">
+                <input type="text" id="todoInput" placeholder="输入待办..." />
+                <button class="btn primary" id="todoAdd">添加</button>
+              </div>
+              <ul id="todoList" class="todo-list"></ul>
+            </div>
+          </div>
+          <div class="card ios-card" data-tilt>
+            <div class="card-content">
+              <div class="liquid-glass"></div>
+              <div class="card-icon" aria-hidden="true">🔄</div>
+              <h3>单位换算器</h3>
+              <p class="small muted">长度 / 重量 / 温度快速换算。</p>
+              <div class="controls">
+                <select id="convType">
+                  <option value="length">长度</option>
+                  <option value="weight">重量</option>
+                  <option value="temp">温度</option>
+                </select>
+                <input type="number" id="convInput" placeholder="输入数值" value="1" />
+              </div>
+              <div id="convOutput" class="small muted"></div>
+            </div>
+          </div>
+           <div class="card ios-card" data-tilt>
+            <div class="card-content">
+              <div class="liquid-glass"></div>
+               <div class="card-icon" aria-hidden="true">🎵</div>
+               <h3>音乐网站 mus.ylmjc.com</h3>
+              <p>一个轻量的音乐网站，支持在线播放与歌单，移动端友好，专注快速加载与干净体验。</p>
+              <p class="tech">地址：<a href="https://mus.ylmjc.com" target="_blank" rel="noopener">mus.ylmjc.com</a></p>
+              <p>
+                <a class="btn primary" href="https://mus.ylmjc.com" target="_blank" rel="noopener">访问音乐站</a>
+              </p>
+            </div>
+          </div>
+          <div class="card ios-card" data-tilt>
+            <div class="card-content">
+              <div class="liquid-glass"></div>
+              <div class="card-icon" aria-hidden="true">🐍</div>
+              <h3>贪吃蛇（自动移动）</h3>
+              <p class="小 muted">自动运行，可暂停 / 调速，方向键控制。</p>
+              <div class="game-wrap">
+                <canvas id="snakeCanvas" width="300" height="300"></canvas>
+              </div>
+              <div class="controls">
+                <button class="btn" id="snakeToggle">暂停</button>
+                <label>速度
+                  <select id="snakeSpeed">
+                    <option value="200">慢</option>
+                    <option value="120" selected>中</option>
+                    <option value="80">快</option>
+                  </select>
+                </label>
+                <span class="小 muted">得分：<span id="snakeScore">0</span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="panel alt hidden">
+      <div class="container">
+        <h2>联系我</h2>
+        <div class="social-links">
+          <a href="https://github.com/yingluom" class="social github ios-card" data-tilt>
+            <div class="liquid-glass"></div>
+            <span>GitHub</span>
+          </a>
+          <a href="https://t.me/sakura_yl" class="social telegram ios-card" data-tilt>
+            <div class="liquid-glass"></div>
+            <span>Telegram</span>
+          </a>
+        </div>
+        <p>邮箱：<a id="emailLink" href="mailto:ylmjc114@gmail.com">ylmjc114@gmail.com</a></p>
+        <p>也可以直接发邮件到上面的地址，或点击下方的"复制邮箱"按钮把邮箱复制到剪贴板。</p>
+        <p class="contact-actions">
+          <button class="btn" id="copyEmailBtn" title="复制邮箱">复制邮箱</button>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="year"></span> <span class="name">桜落滿尽城</span></p>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+  <!-- 内联模块脚本略（保持本地版本） -->
+</body>
+</html>
